@@ -21,7 +21,7 @@ install:
 	npm install --force
 
 run:
-	npm run dev
+	ng serve
 
 pull:
 	git pull

@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -29,12 +29,20 @@ import { MatIconModule } from '@angular/material/icon';
 export class LoginComponent implements OnInit {
 loginForm: FormGroup;
 public isLoggedIn: boolean = false;
-	constructor(private formBuilder: FormBuilder,private authService: AuthService,private router: Router) {
+	constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder,private authService: AuthService,private router: Router) {
 		this.loginForm = this.formBuilder.group({
 	      email: ['', [Validators.required, Validators.email]],
 	      password: ['', [Validators.required, Validators.minLength(6)]]
 	    });
 	}
+	openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000, // Duración en milisegundos
+      verticalPosition: 'top', // Posición vertical de la alerta
+      horizontalPosition: 'end', // Posición horizontal de la alerta
+      panelClass: ['green']
+    });
+  }
 	ngOnInit(): void {
 	     localStorage.setItem('accessToken','....');
 	}
@@ -64,20 +72,23 @@ public isLoggedIn: boolean = false;
 	              	console.log("dashboard")
 	              }
 	              
-	              const parametros: NavigationExtras = {
+	              /*const parametros: NavigationExtras = {
 		              queryParams: {
 		                rol: this.authService.getRol(),
 		                name: this.authService.getUserName()
 		              }
-		            };
-	              this.router.navigate(['/nav'],parametros);
+		            };*/
+	              this.router.navigate(['/nav']/*,parametros*/);
 	          }
 
 	       }, error => {
 	          console.error('Error en la solicitud de inicio de sesión:', error);
-	          alert('Error en la solicitud :');
+	          console.log('Error en la solicitud :',error);
+	          console.log(error.status)
 	          if (error.status===401) {
-	              alert("Contraseña incorrecta");
+	          	  this.openSnackBar("El usuario no existe", 'Cerrar');
+	          	  return;
+	             // alert("Contraseña incorrecta");
 	          }
 	          //alert('Inicio de sesión fallido. Por favor, verifica tu correo electrónico y contraseña.');
 	          // Aquí puedes manejar los errores, como mostrar un mensaje de error al usuario

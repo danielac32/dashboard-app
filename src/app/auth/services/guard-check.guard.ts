@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { CanActivate, Router ,RouterStateSnapshot,ActivatedRoute,ActivatedRouteSnapshot} from '@angular/router';
 import { AuthService } from './auth.service';
@@ -6,8 +7,9 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-  rol?:string;
+export class guardCheckGuard implements CanActivate {
+
+rol?:string;
 
   constructor(/*private route: ActivatedRoute,*/private authService: AuthService, private router: Router) {}
 
@@ -18,14 +20,10 @@ export class AuthGuard implements CanActivate {
     const data = next.data; // Obtener toda la data
     const rol = data['rol'] as string[];
     //console.log("rol necesario: ",data[0]);
-
-
-
     this.rol=this.authService.getRol();
 
     if (this.authService.isLoggedIn()) {
       // console.log("rol: ",this.rol);
-       
       if (rol && this.rol && rol.length > 0 && !rol.includes(this.rol)) {
          alert("no puede entrar aqui")
          this.router.navigate(['/auth/login']);

@@ -3,6 +3,7 @@ import { LoginComponent } from './auth/pages/login/login.component';
 import { UsersComponent } from './auth/pages/users/users.component'
 import {ProfileComponent} from './auth/pages/profile/profile.component'
 import { AuthGuard } from './auth/services/auth.guard';
+import { guardCheckGuard } from './auth/services/guard-check.guard';
 import { EditComponent } from './auth/components/edit/edit.component';
 import { AuthLayoutComponent } from './auth/layout/auth-layout.component'
 import { NavigationComponent } from './dashboard/navigation/navigation.component';
@@ -25,13 +26,13 @@ export const routes: Routes = [
         },
     ]
 }, 
-{ path: 'nav', component: NavigationComponent,canActivate: [AuthGuard],  
+{ path: 'nav', component: NavigationComponent,canActivate: [AuthGuard], 
   children: [
         {
             path: 'reservations',
             title: 'reservations',
             // loadComponent: () => import('./dashboard/pages/reservations-page/reservations-page.component'),
-            component: IndexReservationsComponent
+            component: IndexReservationsComponent,
         },
         {
             path: 'create-reservation',
@@ -46,7 +47,7 @@ export const routes: Routes = [
         {
             path: 'users',
             title: 'users',
-            component: UsersComponent,
+            component: UsersComponent,data: { rol:'ADMIN' },canActivate:[guardCheckGuard],
         },
         {
             path: 'user',

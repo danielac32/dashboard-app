@@ -6,9 +6,14 @@
 }
 
 .left-side {
-  flex: 7; /* Ocupa el 70% del espacio disponible */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw; /* Ancho igual al ancho de la ventana del navegador */
+  height: 100vh; /* Alto igual al alto de la ventana del navegador */
   background-image: url('fondo.jpeg');
   background-size: cover;
+  background-position: center;
 }
 
 .right-side {

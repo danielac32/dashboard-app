@@ -1,17 +1,25 @@
-<form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input type="email" formControlName="email" required  placeholder="Correo electrónico" class="form-field">
-  <div *ngIf="loginForm.get('email')?.hasError('email')" class="error-message">
-      El email ingresado no es válido.
+<main class="box">
+<form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="inputBox">
+  <input type="email" formControlName="email" required  placeholder="Correo electrónico">
+   @if(loginForm.get('email')?.hasError('email')){
+       <div class = "error-message">El email ingresado no es válido.</div>
+   }
+   @if(loginForm.get('email')?.hasError('required')){
+       <div class = "error-message">Email requerido.</div>
+   }
+   </div>
+  <div class="inputBox">
+  <input type="password"  formControlName="password" required placeholder="Contraseña">
+  @if(loginForm.get('password')?.hasError('required')){
+      <div class = "error-message">Contraseña requerida</div>
+  }
+  @if(loginForm.get('password')?.hasError('minlength')){
+    <div class = "error-message">Contraseña menor a 6 caracteres</div>
+  }
   </div>
-  <div *ngIf="loginForm.get('email')?.hasError('required')" class="error-message" >
-      email requerido
+   <div>
+  <button type="submit" name="" style="float: left;">Login</button>
   </div>
-  <input type="password"  formControlName="password" required placeholder="Contraseña" class="form-field">
-  <div *ngIf="loginForm.get('password')?.hasError('required')" class="error-message">
-      contraseña requerida
-  </div>
-  <div *ngIf="loginForm.get('password')?.hasError('minlength')" class="error-message">
-        contraseña menor a 6 caracteres
-  </div>
-  <button type="submit">Login</button>
 </form>
+</main>
