@@ -1,0 +1,18 @@
+
+ 
+      <div >
+        
+            <h2>{{ data.title }}</h2>
+         
+          <select [(ngModel)]="selectedItem">
+            <option *ngFor="let item of data.items" [value]="item">{{ item }}</option>
+          </select>
+         
+              <button   (click)="onAceptar()">Aceptar</button>
+              <button  (click)="onCancelar()">Cancelar</button>
+        
+      </div>
+ 
+
+
+

@@ -1,0 +1,18 @@
+ @if(person){
+ 	<div class="form-container">
+<mat-card >
+  <mat-card-header>
+    <mat-card-title>Nombre: {{ person.name }} </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card-subtitle>Correo: {{ person.email }} </mat-card-subtitle>
+    <mat-card-subtitle>Dirección: {{ direction }} </mat-card-subtitle>
+    <mat-card-subtitle>Rol: {{ person.rol }} </mat-card-subtitle>
+  </mat-card-content>
+  <mat-card-actions>
+      <button matTooltip="Actualizar" (click)="createUser()" ><mat-icon>update</mat-icon></button>
+  </mat-card-actions>
+</mat-card>
+</div>
+ 
+ }

@@ -1,0 +1,20 @@
+<div class="card-container">
+  <div class="mat-card-container">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ reservation?.user?.name | titlecase }}</mat-card-title>
+    <mat-card-subtitle>{{ reservation?.user?.direction?.address | titlecase }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ reservation?.state | uppercase }}</p>
+    <p>Inicio: {{ startDate | date:'yyyy-MM-dd, h:mm a'}}</p>
+    <p>Fin: {{ endDate | date:'yyyy-MM-dd, h:mm a'}}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button  mat-raised-button matTooltip="Ver mas..." [routerLink]="['/nav/reservation', reservation?.id]"><mat-icon>visibility</mat-icon></button>
+  <!--<button  mat-raised-button matTooltip="Eliminar" (click)="delete(reservation?.id)"><mat-icon>delete</mat-icon></button>-->
+  
+  </mat-card-actions>
+</mat-card>
+</div>
+</div>

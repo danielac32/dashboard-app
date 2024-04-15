@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea si no caben en la pantalla */
+    /*justify-content: space-around; /* Distribuye los elementos horizontalmente con espacio entre ellos */
+    padding: 10px;
+}
+
+.card {
+    margin-bottom: 20px; /* Espacio entre las cards */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+}
+ 
+.green {
+  background: green;
+  color: white ;
+  white-space: pre-wrap
+}

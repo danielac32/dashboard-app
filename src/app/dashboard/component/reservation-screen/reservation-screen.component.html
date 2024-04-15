@@ -1,0 +1,27 @@
+@if (reservation) {
+<div class="form-container">
+<mat-card >
+  <mat-card-header>
+    <mat-card-title>Descripcion: {{ reservation.descripcion | titlecase}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card-subtitle>Status: {{ reservation.state | uppercase }}</mat-card-subtitle>
+    <mat-card-subtitle>Salon: {{ salon }}</mat-card-subtitle>
+    <mat-card-subtitle>Fecha de inicio: {{ startDate | date:'yyyy-MM-dd, h:mm a' }}</mat-card-subtitle>
+    <mat-card-subtitle>Fecha de finalizacion: {{ endDate | date:'yyyy-MM-dd, h:mm a' }}</mat-card-subtitle>
+    <mat-card-subtitle>Requerimiento: {{reservation.requerimiento}}</mat-card-subtitle>
+  </mat-card-content>
+  <mat-card-actions>
+       @if (rol === "ADMIN"){
+            @if(reservation.state === "PENDING"){
+                <button (click)="changeStatusInReservation(reservation.id, 'ACCEPTED')"  matTooltip="Aceptar"><mat-icon>check_circle</mat-icon></button>
+                <button (click)="changeStatusInReservation(reservation.id, 'REFUSED')"  matTooltip="Rechazar"><mat-icon>close</mat-icon></button>
+            }
+        }
+            <button  matTooltip="Eliminar" (click)="delete(reservation.id)"><mat-icon>delete</mat-icon></button>
+            <button matTooltip="Volver" (click)="goBack()"><mat-icon>arrow_back</mat-icon></button>
+        
+  </mat-card-actions>
+</mat-card>
+</div>
+}

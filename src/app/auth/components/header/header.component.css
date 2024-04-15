@@ -1,0 +1,48 @@
+header {
+  background-color: rgba(51, 51, 51, 0.8); /* Color de fondo con transparencia */
+  color: #fff;
+  padding: 10px 0;
+  position: fixed; /* Hacer que el header sea fijo en la parte superior */
+  width: 100%; /* Ancho completo */
+  z-index: 1000; /* Asegurarse de que el header esté en la parte superior */
+  top: 0; /* Ajustar para que el header comience desde la posición 0,0 */
+  left: 0;
+  backdrop-filter: blur(10px); /* Efecto de desenfoque */
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  margin-left: 20px;
+}
+
+.nav-menu {
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-menu li {
+  margin-right: 20px;
+}
+
+.content {
+  margin-left: 250px; /* Ancho del sidebar */
+  padding: 20px;
+  margin-top: 60px; /* Ajustar para dejar espacio para el header */
+}
+
+/* Estilos de los enlaces */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

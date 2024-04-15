@@ -1,0 +1,30 @@
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: rgba(51, 51, 51, 0.8); /* Color de fondo con transparencia */
+  color: #fff;
+  position: fixed;
+  left: 0;
+  top: 90px; /* Ajustar para que no se superponga con el header */
+  overflow-y: auto;
+  backdrop-filter: blur(10px); /* Efecto de desenfoque */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 20px;
+}
+
+/* Estilos de los enlaces */
+.sidebar a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
