@@ -55,7 +55,7 @@ public myForm: FormGroup = this.fb.group({
   salonId!:number;
   public salons?: Salon[] = []
   public reservations?: Reservation[] = []
-  public statusFilter: string = 'accepted';
+  public statusFilter: string = 'ACCEPTED';
 
  startTime?: string; // Aquí almacenarías el valor de inicio de tu formulario
  endTime?: string; // Aquí almacenarías el valor de inicio de tu formulario

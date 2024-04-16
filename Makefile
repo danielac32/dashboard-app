@@ -8,6 +8,7 @@ commit:
 	@read -p "Enter your commit message: " MESSAGE; \
 	git add .; \
 	git commit -m "$$MESSAGE"; \
+	#git pull
 	git push
 
 # Objetivo de ayuda que muestra las opciones disponibles

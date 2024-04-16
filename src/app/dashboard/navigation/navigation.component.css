@@ -15,3 +15,20 @@
   top: 0;
   z-index: 1;
 }
+
+.background-container {
+    position: relative; /* Establece la posición relativa para poder posicionar elementos hijos de forma absoluta */
+}
+
+.background-image {
+    position: absolute; /* Establece la posición absoluta para que la imagen se superponga */
+    top: 30; /* Coloca la imagen en la esquina superior izquierda */
+    left: 0;
+    width: 100%; /* Haz que la imagen cubra todo el contenedor */
+    height: 100%;
+    z-index: -1; /* Coloca la imagen detrás del contenido principal */
+    /* Ajusta el fondo como desees, por ejemplo: */
+    background-image: url('fondo.jpeg');
+    background-size: cover; /* Ajusta el tamaño de la imagen para que cubra todo el contenedor */
+    opacity: 0.9; /* Ajusta la opacidad de la imagen si lo deseas */
+}
