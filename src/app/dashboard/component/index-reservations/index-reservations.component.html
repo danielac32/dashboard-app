@@ -19,4 +19,11 @@
              />
         }
     </div>
+    <select (change)="changeLimit($event)">
+        @for (limit of limitOptions; track $index) {
+            <option [value]=limit>{{ limit }}</option>
+        }
+    </select>
+    <button (click)="backReservations()" [disabled]="page < 2"> <- </button>
+    <button (click)="otherReservations()" [disabled]="metaLastPage === page"> -> </button>
 </section>

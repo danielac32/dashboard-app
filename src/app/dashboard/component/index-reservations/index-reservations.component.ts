@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ReservationsService } from '../services/reservations.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReservationCardComponent } from '../reservation-card/reservation-card.component';
-import { SalonService } from '../../../salon/salon.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { ActivatedRoute,Router } from '@angular/router';
 
@@ -31,7 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatListModule,
     MatIconModule,
     MatTooltipModule
-    ],
+  ],
   providers: [ReservationsService,AuthService],
   templateUrl: './index-reservations.component.html',
   styleUrl: './index-reservations.component.css'
@@ -41,6 +40,12 @@ export class IndexReservationsComponent implements OnInit {
   public statusFilter: string = 'PENDING'; // Variable para almacenar el estado de filtro
   public emailUser? :string;
   public rol? :string;
+  public limit: number = 5;
+  public limitOptions: number[] = [5, 10, 15, 25, 50];
+  public page: number = 1;
+
+  public metaPage?: number;
+  public metaLastPage?: number;
 
   constructor(
     private reservationsService: ReservationsService,
@@ -88,16 +93,17 @@ export class IndexReservationsComponent implements OnInit {
 
     console.log("load ",this.rol)
     if(this.rol=== 'ADMIN') {
-      this.reservationsService.allReservations(this.statusFilter)
-        .subscribe(({ reservations}) => (this.reservations = reservations));
+      this.reservationsService.allReservations(this.statusFilter, this.limit, this.page)
+        .subscribe(({ reservations }) => (this.reservations = reservations));
       return;
     }
 
-    this.reservationsService.allReservationByUser(this.emailUser,this.statusFilter)
-    .subscribe(({reservations}) => (
-        this.reservations = reservations
+    this.reservationsService.allReservationByUser(this.emailUser, this.statusFilter, this.limit, this.page)
+    .subscribe(({reservations, meta}) => (
+      this.reservations = reservations,
+      this.metaLastPage = meta.lastPage,
+      this.page = meta.page
     )); 
-    console.log(this.reservations)
   }
 
   // Método para cambiar el filtro de estado
@@ -105,5 +111,23 @@ export class IndexReservationsComponent implements OnInit {
     this.statusFilter = newStatus;
     this.loadReservations(); // Volver a cargar las reservas con el nuevo filtro
   }
+
+  backReservations() {
+    if(this.page <= 1) return;
+    this.page--;
+    this.loadReservations()
+  }
   
+  otherReservations() {
+    if(this.page === this.metaLastPage) return;
+    this.page++
+    this.loadReservations();
+  }
+
+  changeLimit(event: any) {
+    const value = event.target.value;
+    this.limit = +value;
+    this.loadReservations();
+    // this.limit = value;
+  }
 }

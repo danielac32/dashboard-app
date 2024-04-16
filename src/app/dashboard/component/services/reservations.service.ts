@@ -29,39 +29,42 @@ export class ReservationsService {
 
 
   createReservation(createReservation: CreateReservation): Observable<Reservation> {
-      const token = localStorage.getItem('accessToken');
-      if (token) {
-          const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-          });
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+        });
 
-          return this.httpClient.post<Reservation>(`${ this.baseUrl }/reservations`, {
-            ...createReservation
-          },{ headers });
-      }
-      return new Observable<Reservation>();
+        return this.httpClient.post<Reservation>(`${ this.baseUrl }/reservations`, {
+          ...createReservation
+        },{ headers });
+    }
+    return new Observable<Reservation>();
   }
 
-  allReservationByUser(term: string,state?:string): Observable<ReservationResponse3> {
+  allReservationByUser(term: string, state?: string, limit: number = 10, page: number = 1 ): Observable<ReservationResponse3> {
     const token = localStorage.getItem('accessToken');
       if (token) {
           const headers = new HttpHeaders({
             'Authorization': `Bearer ${token}`
           });
 
-          return this.httpClient.get<ReservationResponse3>(`${ this.baseUrl }/users/${ term }/reservations?state=${state}`,{ headers })
+          return this.httpClient.get<ReservationResponse3>
+            (`${ this.baseUrl }/users/${ term }/reservations?state=${state}&limit=${ limit }&page=${page}`,{ headers })
       }
       return new Observable<ReservationResponse3>();
   }
 
 
-  allReservations(status?: string): Observable<ReservationResponse> {
+  allReservations(status?: string, limit = 10, page = 1): Observable<ReservationResponse> {
     const token = localStorage.getItem('accessToken');
     if (token) {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-      return this.httpClient.get<ReservationResponse>(`${ this.baseUrl}/reservations?state=${ status }`,{ headers });
+      return this.httpClient
+        .get<ReservationResponse>
+          (`${ this.baseUrl}/reservations?state=${ status }&limit=${ limit }&page${ page }`,{ headers });
     } 
     return new Observable<ReservationResponse>();
   }

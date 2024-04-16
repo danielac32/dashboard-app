@@ -52,8 +52,8 @@ export interface User {
 
 export interface ReservationResponse3 {
   reservations: ReservationUser[]
+  meta: Meta
 }
-
 export interface ReservationWithUser {
   id: number;
   cantidad_persona: number;
@@ -79,4 +79,15 @@ export interface ReservationWithUser {
 
 export interface ReservationResponse4 {
   reservations: ReservationWithUser[]
+}
+
+export interface ReservationsUserResponse {
+  reservations: Reservation[];
+  meta:         Meta;
+}
+
+export interface Meta {
+  total:    number;
+  page:     number;
+  lastPage: number;
 }
