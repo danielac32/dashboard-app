@@ -21,6 +21,11 @@
 }
 
 .background-image {
+  margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
     position: absolute; /* Establece la posición absoluta para que la imagen se superponga */
     top: 30; /* Coloca la imagen en la esquina superior izquierda */
     left: 0;

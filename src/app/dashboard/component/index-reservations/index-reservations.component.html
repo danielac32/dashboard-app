@@ -1,5 +1,5 @@
-<section>
-   
+<div>
+ 
     <div class="navigation">
     <button mat-raised-button color="" (click)="changeStatusFilter('PENDING')" matTooltip="Pendientes">
         <mat-icon>
@@ -8,8 +8,19 @@
     </button>
     <button mat-raised-button color="" (click)="changeStatusFilter('ACCEPTED')" matTooltip="Aceptadas"><mat-icon>check_circle</mat-icon></button>
     <button mat-raised-button color="" (click)="changeStatusFilter('REFUSED')" matTooltip="Rechazadas"><mat-icon>warning</mat-icon></button>
-
+    
+    <select (change)="changeLimit($event)" matTooltip="Pagina">
+        @for (limit of limitOptions; track $index) {
+            <option [value]=limit>{{ limit }}</option>
+        }
+    </select>
+    <button matTooltip="Anterior" (click)="backReservations()" [disabled]="page < 2"> <mat-icon>skip_previous</mat-icon> </button>
+    <button matTooltip="Siguiente" (click)="otherReservations()" [disabled]="metaLastPage === page"> <mat-icon>skip_next</mat-icon> </button>
+    <!--<label>{{total}}</label>-->
+    
+  <button matTooltip="Pagina">{{page}} </button>
     </div>
+
 
     <div class="container">
         @for (reservation of reservations; track reservation.id) {
@@ -19,11 +30,7 @@
              />
         }
     </div>
-    <select (change)="changeLimit($event)">
-        @for (limit of limitOptions; track $index) {
-            <option [value]=limit>{{ limit }}</option>
-        }
-    </select>
-    <button (click)="backReservations()" [disabled]="page < 2"> <- </button>
-    <button (click)="otherReservations()" [disabled]="metaLastPage === page"> -> </button>
-</section>
+    
+</div>
+
+ 

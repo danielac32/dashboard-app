@@ -4,6 +4,7 @@
   <mat-card-header>
     <mat-card-title>{{ reservation?.user?.name | titlecase }}</mat-card-title>
     <mat-card-subtitle>{{ reservation?.user?.direction?.address | titlecase }}</mat-card-subtitle>
+    <!--<mat-card-subtitle>{{ reservation?.descripcion | titlecase }}</mat-card-subtitle>-->
   </mat-card-header>
   <mat-card-content>
     <p>{{ reservation?.state | uppercase }}</p>

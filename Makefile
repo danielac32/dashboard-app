@@ -22,7 +22,7 @@ install:
 	npm install --force
 
 run:
-	ng serve
+	ng serve --host 0.0.0.0
 
 pull:
 	git pull

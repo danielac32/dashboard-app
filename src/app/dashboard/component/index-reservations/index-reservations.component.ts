@@ -14,7 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatCardModule } from '@angular/material/card'; // Importa MatCardModule
 
 
 @Component({
@@ -29,7 +29,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCardModule
   ],
   providers: [ReservationsService,AuthService],
   templateUrl: './index-reservations.component.html',
@@ -43,7 +44,7 @@ export class IndexReservationsComponent implements OnInit {
   public limit: number = 5;
   public limitOptions: number[] = [5, 10, 15, 25, 50];
   public page: number = 1;
-
+  public total?:number;
   public metaPage?: number;
   public metaLastPage?: number;
 
@@ -93,12 +94,19 @@ export class IndexReservationsComponent implements OnInit {
 
     console.log("load ",this.rol)
     if(this.rol=== 'ADMIN') {
-      this.reservationsService.allReservations(this.statusFilter, this.limit, this.page)
+       this.reservationsService.allReservations(this.statusFilter, this.limit, this.page)
         .subscribe(({ reservations , meta }) => (
           this.reservations = reservations,
           this.metaLastPage = meta.lastPage,
-          this.page = meta.page
+          this.page = meta.page,
+          this.total=meta.total
         ));
+        console.log("load reservations")
+        console.log("limit: ",this.limit)
+        console.log("page: ",this.page)
+        console.log("last page: ",this.metaLastPage)
+        console.log("total: ",this.total)
+
       return;
     }
 
@@ -106,8 +114,15 @@ export class IndexReservationsComponent implements OnInit {
     .subscribe(({reservations, meta}) => (
       this.reservations = reservations,
       this.metaLastPage = meta.lastPage,
-      this.page = meta.page
+      this.page = meta.page,
+      this.total=meta.total
     )); 
+
+    console.log("load reservations")
+    console.log("limit: ",this.limit)
+    console.log("page: ",this.page)
+    console.log("last page: ",this.metaLastPage)
+    console.log("total: ",this.total)
   }
 
   // Método para cambiar el filtro de estado
