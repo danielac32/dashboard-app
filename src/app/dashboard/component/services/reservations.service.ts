@@ -64,7 +64,7 @@ export class ReservationsService {
       });
       return this.httpClient
         .get<ReservationResponse>
-          (`${ this.baseUrl}/reservations?state=${ status }&limit=${ limit }&page${ page }`,{ headers });
+          (`${ this.baseUrl}/reservations?state=${ status }&limit=${ limit }&page=${ page }`,{ headers });
     } 
     return new Observable<ReservationResponse>();
   }

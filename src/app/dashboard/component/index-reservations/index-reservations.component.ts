@@ -94,7 +94,11 @@ export class IndexReservationsComponent implements OnInit {
     console.log("load ",this.rol)
     if(this.rol=== 'ADMIN') {
       this.reservationsService.allReservations(this.statusFilter, this.limit, this.page)
-        .subscribe(({ reservations }) => (this.reservations = reservations));
+        .subscribe(({ reservations , meta }) => (
+          this.reservations = reservations,
+          this.metaLastPage = meta.lastPage,
+          this.page = meta.page
+        ));
       return;
     }
 

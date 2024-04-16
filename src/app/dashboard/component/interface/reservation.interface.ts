@@ -1,5 +1,6 @@
 export interface ReservationResponse {
     reservations: Reservation[];
+    meta: Meta
 }
 
 export interface Reservation {
