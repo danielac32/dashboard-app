@@ -10,8 +10,8 @@ import { NavigationComponent } from './dashboard/navigation/navigation.component
 import { IndexReservationsComponent } from './dashboard/component/index-reservations/index-reservations.component'
 import { CreateReservationsComponent } from './dashboard/component/create-reservations/create-reservations.component'
 import { ReservationScreenComponent } from './dashboard/component/reservation-screen/reservation-screen.component'
-
-
+import { ReportBySalonComponent } from './dashboard/component/report/report-by-salon/report-by-salon.component'
+import { ReportByUserComponent } from './dashboard/component/report/report-by-user/report-by-user.component'
 
 export const routes: Routes = [
 
@@ -54,7 +54,16 @@ export const routes: Routes = [
             title: 'user',
             component: ProfileComponent,
         },
-        
+        {
+            path: 'ReportBySalon',
+            title: 'report',
+            component: ReportBySalonComponent,data: { rol:'ADMIN' },canActivate:[guardCheckGuard],
+        },
+        {
+            path: 'ReportByUser',
+            title: 'report',
+            component: ReportByUserComponent,data: { rol:'ADMIN' },canActivate:[guardCheckGuard],
+        },
   ]
 
 },

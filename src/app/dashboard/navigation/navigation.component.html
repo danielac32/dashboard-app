@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>{{ user }}</mat-toolbar>
+    <mat-toolbar></mat-toolbar>
     <mat-nav-list>
       <a mat-list-item matTooltip="Lista de Reservaciones" [routerLink]="['/nav/reservations/']" [queryParams]="{ reload: true }">
         <mat-icon>
@@ -13,21 +13,21 @@
 
       <a mat-list-item matTooltip="Crear Reservación" routerLink="/nav/create-reservation"><mat-icon>add_circle</mat-icon></a>
       @if(admin){
-         <a mat-list-item matTooltip="Reporte por usuario">
+         <a mat-list-item matTooltip="Reporte por usuario" [routerLink]="['/nav/ReportByUser/']" [queryParams]="{ reload: true }">
             <mat-icon>
               feed
             </mat-icon>
          </a>
-         <a mat-list-item matTooltip="Reporte por salón">
+         <a mat-list-item matTooltip="Reporte por salón" [routerLink]="['/nav/ReportBySalon/']" [queryParams]="{ reload: true }">
             <mat-icon>
               feed
             </mat-icon>
          </a>
-         <a mat-list-item matTooltip="Reporte por fecha">
+         <!--<a mat-list-item matTooltip="Reporte por fecha">
             <mat-icon>
               feed
             </mat-icon>
-         </a>
+         </a>-->
          <a mat-list-item matTooltip="Usuarios" [routerLink]="['/nav/users/']" [queryParams]="{ reload: true }">
             <mat-icon>
               group
@@ -47,7 +47,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="cintillo">
       @if (isHandset$ | async) {
         <button
           type="button"
@@ -57,7 +57,9 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
       }
-      <span>Inicio</span>
+     <span>
+        <!--{{user}}-->
+      </span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="background-image">

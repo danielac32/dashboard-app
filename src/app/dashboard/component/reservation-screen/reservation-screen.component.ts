@@ -175,6 +175,9 @@ ngOnInit(): void {
            reload:true
         });
       });
+      if(status==="ACCEPTED"){
+        
+      }
   }
 
   goBack() {

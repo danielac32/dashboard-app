@@ -65,6 +65,7 @@ constructor(
       horizontalPosition: 'end', // Posición horizontal de la alerta
       panelClass: ['green']
     });
+    this.loadUsers();
   }
 
 
@@ -127,11 +128,12 @@ constructor(
         this.dataSource.paginator = this.paginator;
      }, error => {
         console.error('Error en la solicitud :', error);
-        this.handleMessage('/nav/users',{
+        /*this.handleMessage('/nav/users',{
            status: 'error',
            message: 'Error cargando los usuarios',
            reload:true
-        });
+        });*/
+        this.openSnackBar("Error en la solicitud", 'Cerrar');
      });
   }
 
@@ -145,49 +147,25 @@ constructor(
         });
         dialogRef.afterClosed().subscribe((respuesta:CreateUserFromDialog) => {
           //console.log('La respuesta recibida del diálogo es:', respuesta);
-          if(respuesta!==undefined){
-                this.authService.createUser({
-                                            name:respuesta?.name,
-                                            email:respuesta?.email,
-                                            password:respuesta?.password,
-                                            directionId:Number(respuesta?.selectedItem),
-                                            rol:respuesta?.rol})
-              .subscribe(esponse => {
-                  /*this.handleMessage('/nav/users',{
-                       status: 'ok',
-                       message: 'Usuario Creado',
-                       reload:true
-                  });*/
-                  this.openSnackBar('Rol cambiado', 'Cerrar');
-                  this.loadUsers();
-
-              }, error => {
-                  console.error('Error en la solicitud :', error.error);
-                  /*this.handleMessage('/nav/users',{
-                     status: 'error',
-                     message: error.error,
-                     reload:true
-                  });*/
-                  this.openSnackBar(error.error, 'Cerrar');
-                  this.loadUsers();
-              });
-          }else{
-              console.error('salio del formulario');
-              this.handleMessage('/nav/users',{
-                     status: 'error',
-                     message: 'No se creo el Usuario, salio del formulario',
-                     reload:true
-              });
-          }
+            if(respuesta!==undefined){
+                  this.authService.createUser({name:respuesta?.name,email:respuesta?.email,password:respuesta?.password,directionId:Number(respuesta?.selectedItem),rol:respuesta?.rol})
+                  .subscribe(esponse => {
+                    this.openSnackBar('Rol cambiado', 'Cerrar');
+                    //this.loadUsers();
+                  }, error => {
+                     console.error('Error en la solicitud :', error.error);
+                     this.openSnackBar(error.error, 'Cerrar');
+                    //this.loadUsers();
+                  });
+            }else{
+                console.error('salio del formulario');
+                this.openSnackBar('No se creo el Usuario, salio del formulario', 'Cerrar');
+            }
         }, error => {
-              /*this.handleMessage('/nav/users',{
-                     status: 'error',
-                     message: 'error recibiendo la respuesta del dialog',
-                     reload:true
-              });*/
               this.openSnackBar('error recibiendo la respuesta del dialog', 'Cerrar');
-              this.loadUsers();
+              //this.loadUsers();
         });
+        //this.loadUsers();
   }
 
   editar(id?:string){
@@ -202,71 +180,70 @@ constructor(
 
           dialogRef.afterClosed().subscribe((respuesta: string) => {
             //console.log('La respuesta recibida del diálogo es:', respuesta);
-            if(respuesta!==undefined){
-               this.authService.updateRol(id,respuesta).subscribe(response => {
-                  //console.log("rol cambiado ")
-                  /*this.handleMessage('/nav/users',{
-                     status: 'ok',
-                     message: 'Rol cambiado',
-                     reload:true
-                  });*/
-                this.openSnackBar('Rol cambiado', 'Cerrar');
-                this.loadUsers();
-               }, error => {
-                  console.error('Error en la solicitud :', error);
-                  /*this.handleMessage('/nav/users',{
-                     status: 'error',
-                     message: 'No se actualizo el rol',
-                     reload:true
-                  });*/
-                  this.openSnackBar('No se actualizo el rol', 'Cerrar');
-                  this.loadUsers();
-               });
-            }else{
-              /*this.handleMessage('/nav/users',{
-                     status: 'error',
-                     message: 'Debe selecionar un rol',
-                     reload:true
-              });*/
-              this.openSnackBar('Debe selecionar un rol', 'Cerrar');
-              this.loadUsers();
-            }
+              if(respuesta!==undefined){
+                 this.authService.updateRol(id,respuesta).subscribe(response => {
+                    this.openSnackBar('Rol cambiado', 'Cerrar');
+                    //this.loadUsers();
+                 }, error => {
+                    console.error('Error en la solicitud :', error);
+                    this.openSnackBar('No se actualizo el rol', 'Cerrar');
+                    //this.loadUsers();
+                 });
+              }else{
+                this.openSnackBar('Debe selecionar un rol', 'Cerrar');
+                //this.loadUsers();
+              }
+          }, error => {
+              this.openSnackBar('error recibiendo la respuesta del dialog', 'Cerrar');
+              //this.loadUsers();
           });
-         //this.router.navigate(['/nav/users/edit'],{ queryParams: { parametro: id } });
       }else{
-        /*this.handleMessage('/nav/users',{
-               status: 'error',
-               message: 'Ocurrio un error al acceder al usuario',
-               reload:true
-        });*/
         this.openSnackBar('Ocurrio un error al acceder al usuario', 'Cerrar');
-        this.loadUsers();
+        //this.loadUsers();
       }
+      //this.loadUsers();
+      return;
   }
 
   eliminar(id?:string){
       if (id !== undefined) {
            this.authService.deleteUser(id).subscribe(response => {
               console.log("usuario eliminado ")
-              /*const parametros: NavigationExtras = {
-                queryParams: {
-                  status: 'ok',
-                  message: 'Usuario eliminado',
-                  reload:true
-                }
-              };
-              this.router.navigate(['/nav/users'],parametros);*/
               this.openSnackBar("Usuario eliminado", 'Cerrar');
-              this.loadUsers();
+              //this.loadUsers();
            }, error => {
               console.error('Error en la solicitud :', error);
               this.openSnackBar("Error eliminando usuario", 'Cerrar');
-              this.loadUsers();
+              //this.loadUsers();
               //alert('Error en la solicitud :');
            });
-      }    
+      }else{
+        this.openSnackBar('Ocurrio un error al acceder al usuario', 'Cerrar');
+        //this.loadUsers();
+      }   
+      //this.loadUsers();
+      return;
   }
 
+
+  resetPass(id?:string){
+    if (id !== undefined) {
+          this.authService.resetPassword(id).subscribe(response => {
+              console.log("clave cambiada ")
+              this.openSnackBar("Clave cambiada", 'Cerrar');
+              //this.loadUsers();
+           }, error => {
+              console.error('Error en la solicitud :', error);
+              this.openSnackBar("Error cambiando contraseña", 'Cerrar');
+              //this.loadUsers();
+              //alert('Error en la solicitud :');
+           });
+    }else{
+        this.openSnackBar('Ocurrio un error al acceder al usuario', 'Cerrar');
+    }   
+    //this.loadUsers();
+    return;
+  }
 
 
   activar(id?: string) {
@@ -276,17 +253,18 @@ constructor(
       this.authService.updateUserActive(id,{isActive:true}).subscribe(response => {
          // console.log("aquii: ",this.users[0].direction?.address )
         //this.router.navigate(['/users']);
-        this.loadUsers();
+        //this.loadUsers();
+         this.openSnackBar("Usuario activado", 'Cerrar');
       }, error => {
           console.error('Error en la solicitud :', error);
           this.openSnackBar("Error", 'Cerrar');
-          this.loadUsers();
+          //this.loadUsers();
       });
       // Llamar a una función o realizar cualquier otra acción con el ID
     } else {
       console.error('El ID es undefined');
       this.openSnackBar("Error", 'Cerrar');
-      this.loadUsers();
+      //this.loadUsers();
     }
   }
 
@@ -297,17 +275,18 @@ constructor(
       this.authService.updateUserActive(id,{isActive:false}).subscribe(response => {
          // console.log("aquii: ",this.users[0].direction?.address )
         //this.router.navigate(['/users']);
-        this.loadUsers();
+        //this.loadUsers();
+         this.openSnackBar("Usuario desactivado", 'Cerrar');
       }, error => {
           console.error('Error en la solicitud :', error);
           this.openSnackBar("Error", 'Cerrar');
-          this.loadUsers();
+          //this.loadUsers();
       });
       // Llamar a una función o realizar cualquier otra acción con el ID
     } else {
       console.error('El ID es undefined');
       this.openSnackBar("Error", 'Cerrar');
-      this.loadUsers();
+      //this.loadUsers();
     }
   }
 }

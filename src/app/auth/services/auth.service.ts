@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient,private router: Router) { }
 
 
-    deleteUser(id:string):Observable<User>{
+  deleteUser(id:string):Observable<User>{
      const token = localStorage.getItem('accessToken');
       if (token) {
           const headers = new HttpHeaders({
@@ -26,11 +26,23 @@ export class AuthService {
       return new Observable<User>();
   }
 
- 
+  resetPassword(id:string):Observable<UserResponse>{
+      const token = localStorage.getItem('accessToken');
+      if (token) {
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          });
+          
+          return this.httpClient.patch<UserResponse>(`${ this.baseUrl }/resetPassword/${id}`,{},{ headers: headers });
+      }
+      return new Observable<UserResponse>();
+  }
+
   isAdmin():boolean{
       if(this.getRol()==="ADMIN")return true;
       return false;
   }
+
   updateRol(email:string,rol:string):Observable<UserResponse>{
       const token = localStorage.getItem('accessToken');
       if (token) {

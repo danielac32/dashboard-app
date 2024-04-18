@@ -3,9 +3,19 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 60px;
 }
+.cintillo{
+ 
+  background-image: url('cintillo2.jpeg');
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el área de la barra de herramientas */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+ 
+  width: 100%; /* Asegura que el div ocupe todo el ancho del contenedor */
+  height: 110px; /* Establece la altura deseada para el cintillo */
+  left: 50%;
 
+}
 .sidenav .mat-toolbar {
   background: inherit;
 }
@@ -21,13 +31,13 @@
 }
 
 .background-image {
-  margin: 0;
+    margin: 0;
     padding: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow-x: hidden;
     position: absolute; /* Establece la posición absoluta para que la imagen se superponga */
-    top: 30; /* Coloca la imagen en la esquina superior izquierda */
+    top: 12%; /* Coloca la imagen en la esquina superior izquierda */
     left: 0;
     width: 100%; /* Haz que la imagen cubra todo el contenedor */
     height: 100%;
