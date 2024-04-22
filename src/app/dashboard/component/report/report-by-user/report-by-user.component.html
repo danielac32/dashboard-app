@@ -1,1 +1,41 @@
-<p>report-by-user works!</p>
+
+<mat-card class="login-container">
+    <h2>Reporte por usuario</h2>
+  <form  class="login" [formGroup]="myForm" (ngSubmit)="createReport()">
+
+	<select formControlName="user" class = "custom-select" >
+        <option value="" disabled selected>Usuario</option>
+       @for (user of users; track user.id) {
+            <option value="{{ user.email }}">{{ user.name }}</option>
+        } @empty {
+            <option>There are no items.</option>
+        }          
+    </select>
+
+    @if (myForm.get('user')?.hasError('required')){
+        <div class="error-message" >
+            Usuario requerido
+        </div>
+    }
+
+
+    <input formControlName="startDate" type="date" required />
+    <label>{{startTime}}</label>
+    @if (myForm.get('startDate')?.hasError('required')){
+        <div class="error-message" >
+            Fecha requerida
+        </div>
+    }
+
+    <input formControlName="endDate" type="date" required/>
+    <label>{{endTime}}</label>
+    @if (myForm.get('endDate')?.hasError('required')){
+        <div class="error-message" >
+            Fecha requerida
+        </div>
+    }
+
+  	<button type="submit">Generar</button>
+  </form>
+</mat-card>
+

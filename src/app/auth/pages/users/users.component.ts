@@ -38,7 +38,8 @@ import { CreateUserComponent } from '../../components/create-user/create-user.co
     MatTooltipModule
     ],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.css'
+  styleUrl: './users.component.css',
+  providers: [AuthService]
 })
 
 export class UsersComponent implements OnInit {
@@ -58,7 +59,7 @@ constructor(
 
 }
   
-   openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000, // Duración en milisegundos
       verticalPosition: 'top', // Posición vertical de la alerta
@@ -150,7 +151,7 @@ constructor(
             if(respuesta!==undefined){
                   this.authService.createUser({name:respuesta?.name,email:respuesta?.email,password:respuesta?.password,directionId:Number(respuesta?.selectedItem),rol:respuesta?.rol})
                   .subscribe(esponse => {
-                    this.openSnackBar('Rol cambiado', 'Cerrar');
+                    this.openSnackBar('Usuario Creado', 'Cerrar');
                     //this.loadUsers();
                   }, error => {
                      console.error('Error en la solicitud :', error.error);

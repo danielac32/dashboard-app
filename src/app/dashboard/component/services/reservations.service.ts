@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Reservation, ReservationResponse,ReservationResponse2,ReservationResponse3 } from '../interface/reservation.interface';
+import { ReportByUserResponse,GetReportByUser,Reservation, ReservationResponse,ReservationResponse2,ReservationResponse3 } from '../interface/reservation.interface';
 import { CreateReservation } from '../interface/create-reservation.interface';
 import { StatusReserveTypes } from '../interface/status-reserve.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -25,6 +25,19 @@ export class ReservationsService {
           return this.httpClient.delete<Reservation>(`${ this.baseUrl }/reservations/${id}`,{ headers });
       }
       return new Observable<Reservation>();
+  }
+
+ 
+
+  reportByUser(userId: number, startDate: string, endDate: string):Observable<ReportByUserResponse> {
+    const token = localStorage.getItem('accessToken');
+      if (token) {
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          });
+          return this.httpClient.get<ReportByUserResponse>(`${this.baseUrl}/users/reservations/${userId}/${startDate}/${endDate}`,{ headers })
+      }
+    return new Observable<ReportByUserResponse>();
   }
 
 

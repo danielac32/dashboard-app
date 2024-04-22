@@ -101,3 +101,33 @@ export interface InformData {
   fecha: string;
   requerimiento: string;
 }
+
+export interface GetReportByUser{
+    startDate:        string;
+    endDate:          string;
+    email:            string;
+}
+
+
+interface Salon {
+    id:  number;
+    name:string;
+}
+
+
+export interface ReportByUser{
+    id:               number;
+    startDate:        string;
+    endDate:          string;
+    requerimiento:    string;
+    cantidad_persona: number;
+    descripcion:      string;
+    state:            string;
+    userId:           number;
+    salonId:          number;
+    user:User;
+    salon:Salon;
+}
+export interface ReportByUserResponse{
+    res:ReportByUser[];
+}
