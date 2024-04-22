@@ -37,7 +37,7 @@
     background-attachment: fixed;
     overflow-x: hidden;
     position: absolute; /* Establece la posición absoluta para que la imagen se superponga */
-    top: 12%; /* Coloca la imagen en la esquina superior izquierda */
+    top: 60px; /* Coloca la imagen en la esquina superior izquierda */
     left: 0;
     width: 100%; /* Haz que la imagen cubra todo el contenedor */
     height: 100%;

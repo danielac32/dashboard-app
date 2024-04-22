@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import {User,UserUpdate,UserResponse2,loginUser,UserResponse,UserUpdateActive} from '../interface/auth-login.interface';
 import {CreateUser} from "../interface/create-user.interface"
 import { HttpClientModule } from '@angular/common/http';
-
+import { environment } from '../../../environments/environment.development'
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:4000';
+  private baseUrl = environment.apiUrl;//'http://localhost:4000';
   constructor(private httpClient: HttpClient,private router: Router) { }
 
 

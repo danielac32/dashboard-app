@@ -92,3 +92,12 @@ export interface Meta {
   page:     number;
   lastPage: number;
 }
+
+
+export interface InformData {
+  nombre: string;
+  descripcion: string;
+  salon: string;
+  fecha: string;
+  requerimiento: string;
+}

@@ -5,13 +5,13 @@ import { Reservation, ReservationResponse,ReservationResponse2,ReservationRespon
 import { CreateReservation } from '../interface/create-reservation.interface';
 import { StatusReserveTypes } from '../interface/status-reserve.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { environment } from "../../../../environments/environment.development"
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationsService {
-  private baseUrl = 'http://localhost:4000';
+  private baseUrl = environment.apiUrl;//'http://localhost:4000';
 
   constructor(private httpClient: HttpClient) { }
   

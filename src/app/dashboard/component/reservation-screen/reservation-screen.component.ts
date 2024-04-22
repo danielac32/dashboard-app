@@ -3,7 +3,7 @@ import { ActivatedRoute, Router,ParamMap ,NavigationExtras} from '@angular/route
 import { HttpClientModule } from '@angular/common/http';
 import { switchMap } from 'rxjs';
 import { ReservationsService } from '../services/reservations.service';
-import { Reservation} from '../interface/reservation.interface';
+import { Reservation ,InformData} from '../interface/reservation.interface';
 import { StatusReserveTypes } from '../interface/status-reserve.interface';
 import { CommonModule } from '@angular/common';
 import { SalonService } from '../../../salon/salon.service';
@@ -16,8 +16,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import {typeMessage} from '../../../auth/interface/message.interface'
-
-
+import { InformComponent } from '../inform/inform.component'
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reservation-screen',
@@ -29,7 +29,8 @@ import {typeMessage} from '../../../auth/interface/message.interface'
     MatSelectModule,
     MatCardModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    InformComponent
     ],
   providers: [ReservationsService,SalonService,AuthService],
   templateUrl: './reservation-screen.component.html',
@@ -50,7 +51,7 @@ export class ReservationScreenComponent implements OnInit{
  startDate?:Date;
  endDate?:Date;
  rol?:string;
-
+ 
 
 
 
@@ -59,7 +60,8 @@ export class ReservationScreenComponent implements OnInit{
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private salonService: SalonService,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog,
   ) {}
 
   handleMessage(urlBase:string,mg:typeMessage):void{
@@ -74,6 +76,9 @@ export class ReservationScreenComponent implements OnInit{
   }
 
 ngOnInit(): void {
+     
+
+     
 
     this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
       this.reservationId = params.get('id');
@@ -89,8 +94,8 @@ ngOnInit(): void {
       this.startDate?.setHours(this.startDate.getHours() + 4);
       this.endDate?.setHours(this.endDate.getHours() + 4);
 
-      console.log(this.startDate);
-      console.log(this.endDate);
+      //console.log(this.startDate);
+      //console.log(this.endDate);
 
       this.salonService.findAll().subscribe(({ salones }) => {
             this.salons = salones;
@@ -121,8 +126,7 @@ ngOnInit(): void {
      });
     });
     this.rol=this.authService.getRol();
-
-
+ 
   /*
     this.activatedRoute.params
       .pipe(
@@ -159,10 +163,33 @@ ngOnInit(): void {
         }
     }
 
-
+  inform(data: InformData){
+        const dialogRef = this.dialog.open(InformComponent, {
+            width: '300px',
+            height:'350px',
+            data: {
+               title: 'Solicitud aceptada',
+               report:data
+            }
+        });
+        dialogRef.afterClosed().subscribe(response => {
+              console.log('La respuesta recibida del diálogo es:', response);
+        }, error => {
+              console.log("error")
+        });
+  }
   changeStatusInReservation(id: number, status: string) {
     this.reservationsServices.changeStatusInReservation(id, status)
       .subscribe(response => {
+        if(status==="ACCEPTED"){
+            this.inform({
+                      nombre:this.reservation.user.name,
+                      descripcion:this.reservation.descripcion,
+                      salon:this.salon,
+                      fecha:this.reservation.startDate,
+                      requerimiento:this.reservation.requerimiento
+            });
+        }
         this.handleMessage('/nav/reservations',{
            status: 'ok',
            message: 'Estatus cambiado',
@@ -175,9 +202,6 @@ ngOnInit(): void {
            reload:true
         });
       });
-      if(status==="ACCEPTED"){
-        
-      }
   }
 
   goBack() {

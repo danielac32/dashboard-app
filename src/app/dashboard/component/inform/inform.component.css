@@ -1,0 +1,25 @@
+.informe {
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  font-size: 16px; /* Tamaño de letra reducido */
+}
+
+.informe h1 {
+  font-size: 20px; /* Tamaño de letra reducido */
+  margin-bottom: 20px;
+}
+
+.detalle {
+  margin-top: 20px;
+}
+
+.detalle p {
+  margin: 5px 0;
+  font-size: 14px; /* Tamaño de letra reducido */
+}
+
+.detalle p strong {
+  font-weight: bold;
+}

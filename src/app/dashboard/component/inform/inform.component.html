@@ -1,0 +1,11 @@
+<div #contenido class="informe" >
+  <h2>{{ data.title }}</h2>
+  <div class="detalle">
+    <p><strong>Nombre:</strong> {{ data.report.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ data.report.descripcion }}</p>
+    <p><strong>Salón:</strong> {{ data.report.salon }}</p>
+    <p><strong>Fecha:</strong> {{ convertTo12HourFormat(data.report.fecha) }}</p>
+    <p><strong>Requerimiento:</strong> {{ data.report.requerimiento }}</p>
+  </div>
+  <button mat-raised-button matTooltip="Imprimir" (click)="print()"><mat-icon>print</mat-icon></button>
+</div>

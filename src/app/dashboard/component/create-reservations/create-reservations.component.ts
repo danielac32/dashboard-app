@@ -134,12 +134,12 @@ convertTo12HourFormat(dateTime: string): string {
 
 convertTimeStart(): void {
   this.startTime = this.convertTo12HourFormat(this.myForm.get('startDate')?.value);
-  console.log("start: ",this.startTime)
+  //console.log("start: ",this.startTime)
 }
 
 convertTimeEnd(): void {
   this.endTime = this.convertTo12HourFormat(this.myForm.get('endDate')?.value);
-  console.log("end: ",this.endTime)
+  //console.log("end: ",this.endTime)
 }
 
 

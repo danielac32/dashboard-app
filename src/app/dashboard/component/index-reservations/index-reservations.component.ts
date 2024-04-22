@@ -78,7 +78,7 @@ export class IndexReservationsComponent implements OnInit {
           this.openSnackBar(params['message'], 'Cerrar');
        }
        if(parametro){
-         console.log("reload: ",parametro)
+         //console.log("reload: ",parametro)
          this.loadReservations();
        }
 //       window.history.replaceState(null, '', this.router.url);
@@ -92,7 +92,7 @@ export class IndexReservationsComponent implements OnInit {
     // Usar la variable statusFilter como argumento para allReservations
     if(!this.rol || !this.emailUser) return;
 
-    console.log("load ",this.rol)
+    //console.log("load ",this.rol)
     if(this.rol=== 'ADMIN') {
        this.reservationsService.allReservations(this.statusFilter, this.limit, this.page)
         .subscribe(({ reservations , meta }) => (

@@ -3,12 +3,12 @@ import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {DirectionResponse} from "./directions.interface"
-
+import { environment } from '../../environments/environment.development'
 @Injectable({
   providedIn: 'root'
 })
 export class DirectionsService {
-  private baseUrl = 'http://localhost:4000';
+  private baseUrl = environment.apiUrl;//'http://localhost:4000';
   constructor(private httpClient: HttpClient,private router: Router) { }
 
   findAll():Observable<DirectionResponse>{
