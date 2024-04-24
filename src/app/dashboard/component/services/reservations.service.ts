@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ExcelReportByUser,ReportByUser,ReportByUserResponse,GetReportByUser,Reservation, ReservationResponse,ReservationResponse2,ReservationResponse3 } from '../interface/reservation.interface';
+import { ReportBySalonResponse,ExcelReportByUser,ReportByUser,ReportByUserResponse,GetReportByUser,Reservation, ReservationResponse,ReservationResponse2,ReservationResponse3 } from '../interface/reservation.interface';
 import { CreateReservation } from '../interface/create-reservation.interface';
 import { StatusReserveTypes } from '../interface/status-reserve.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -18,7 +18,7 @@ export class ReservationsService {
   constructor(private httpClient: HttpClient) { }
   
 
-  generarExcel(data: ExcelReportByUser[], nombreArchivo: string): void {
+  generarExcel(data: any[], nombreArchivo: string): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
@@ -51,6 +51,17 @@ export class ReservationsService {
           return this.httpClient.get<ReportByUserResponse>(`${this.baseUrl}/users/reservations/${userId}/${startDate}/${endDate}`,{ headers })
       }
     return new Observable<ReportByUserResponse>();
+  }
+
+  reportBySalon(salonId: number, startDate: string, endDate: string):Observable<ReportBySalonResponse> {
+    const token = localStorage.getItem('accessToken');
+      if (token) {
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          });
+          return this.httpClient.get<ReportBySalonResponse>(`${this.baseUrl}/salon/reservations/${salonId}/${startDate}/${endDate}`,{ headers })
+      }
+    return new Observable<ReportBySalonResponse>();
   }
 
 

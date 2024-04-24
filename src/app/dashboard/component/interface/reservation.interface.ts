@@ -144,3 +144,19 @@ export interface ReportByUser{
 export interface ReportByUserResponse{
     res:ReportByUser[];
 }
+export interface ReportBySalon{
+    id:               number;
+    startDate:        string;
+    endDate:          string;
+    requerimiento:    string;
+    cantidad_persona: number;
+    descripcion:      string;
+    state:            string;
+    userId:           number;
+    salonId:          number;
+    user:User;
+    salon:Salon;
+}
+export interface ReportBySalonResponse{
+    res:ReportBySalon[];
+}
