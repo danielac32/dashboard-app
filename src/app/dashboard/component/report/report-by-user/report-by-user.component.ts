@@ -62,20 +62,20 @@ public myForm: FormGroup = this.fb.group({
 		    this.loadUsers();
 		}
 
-	    ngOnInit(): void {
-		    this.route.queryParams.subscribe(params => {
-		       const parametro = params['reload'];
-		       const status = params['status'];
-		       if(status){
-		          this.openSnackBar(params['message'], 'Cerrar');
-		       }
-		       if(parametro){
-		         this.loadUsers();
-		       }
-		    },error=>{
-		      this.loadUsers();
-		    });
-	    }
+    ngOnInit(): void {
+	    this.route.queryParams.subscribe(params => {
+	       const parametro = params['reload'];
+	       const status = params['status'];
+	       if(status){
+	          this.openSnackBar(params['message'], 'Cerrar');
+	       }
+	       if(parametro){
+	         this.loadUsers();
+	       }
+	    },error=>{
+	      this.loadUsers();
+	    });
+    }
 
 	  loadUsers():void{
 	    this.authService.allUser().subscribe(({users}) => {
@@ -89,20 +89,33 @@ public myForm: FormGroup = this.fb.group({
 	  }
 
 
-      createReport():void{
-      		if(!this.myForm.valid) return;
-			const startDate = this.myForm?.get('startDate')?.value;
-			const endDate = this.myForm?.get('endDate')?.value;
-			const user = this.myForm?.get('user')?.value;
-			if(endDate < startDate){
-				this.openSnackBar("la fecha de inicio no puede ser mayor a la fecha final", 'Cerrar');
-			}
-			this.reservationsService.reportByUser(user, startDate,endDate)
-	        .subscribe(({res}) => {
-	     	  console.log(res);
-	        },error=>{
-	          console.log(error)
-	        });
-      }
+    createReport():void{
+		    if(!this.myForm.valid) return;
+				const startDate = this.myForm?.get('startDate')?.value;
+				const endDate = this.myForm?.get('endDate')?.value;
+				const user = this.myForm?.get('user')?.value;
+				if(endDate < startDate){
+					this.openSnackBar("la fecha de inicio no puede ser mayor a la fecha final", 'Cerrar');
+				}
+				this.reservationsService.reportByUser(user, startDate,endDate)
+        .subscribe(({res}) => {
+        	 console.log(res.length)
+	     	   for (let i = 0; i < res.length; i++) {
+			        const elemento = res[i];
+			        // Haz algo con el elemento, por ejemplo, mostrar en la consola
+			        console.log(res[i])
+			        
+
+			     }
+
+     	  	//this.reservationsService.generarExcel(res, 'ejemplo');
+        },error=>{
+          console.log(error)
+        });
+        
+
+		    
+    }
 }
+
 

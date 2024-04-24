@@ -115,6 +115,19 @@ interface Salon {
 }
 
 
+export interface ExcelReportByUser{
+    id:               number;
+    startDate:        string;
+    endDate:          string;
+    requerimiento:    string;
+    cantidad_persona: number;
+    descripcion:      string;
+    state:            string;
+    user:             string;
+    salon:            string;
+    direction:        string;
+}
+
 export interface ReportByUser{
     id:               number;
     startDate:        string;
