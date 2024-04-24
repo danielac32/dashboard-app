@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ReportByUser,ReportByUserResponse,GetReportByUser,Reservation, ReservationResponse,ReservationResponse2,ReservationResponse3 } from '../interface/reservation.interface';
+import { ExcelReportByUser,ReportByUser,ReportByUserResponse,GetReportByUser,Reservation, ReservationResponse,ReservationResponse2,ReservationResponse3 } from '../interface/reservation.interface';
 import { CreateReservation } from '../interface/create-reservation.interface';
 import { StatusReserveTypes } from '../interface/status-reserve.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -18,7 +18,7 @@ export class ReservationsService {
   constructor(private httpClient: HttpClient) { }
   
 
-  generarExcel(data: ReportByUser[], nombreArchivo: string): void {
+  generarExcel(data: ExcelReportByUser[], nombreArchivo: string): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');

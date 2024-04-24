@@ -14,7 +14,7 @@ import { ReservationsService } from '../../services/reservations.service';
 import {typeMessage} from '../../../../auth/interface/message.interface'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
-import {ReportByUser,ReportByUserResponse} from '../../interface/reservation.interface'
+import {ExcelReportByUser,ReportByUser,ReportByUserResponse} from '../../interface/reservation.interface'
 
 @Component({
   selector: 'app-report-by-user',
@@ -35,6 +35,8 @@ export class ReportByUserComponent implements OnInit {
 public users: __user[] = [];
 startTime?: string; // Aquí almacenarías el valor de inicio de tu formulario
 endTime?: string; // Aquí almacenarías el valor de inicio de tu formulario
+lista: ExcelReportByUser[]=[];
+
 
 public myForm: FormGroup = this.fb.group({
 	    startDate: ['', Validators.required],
@@ -98,20 +100,38 @@ public myForm: FormGroup = this.fb.group({
 					this.openSnackBar("la fecha de inicio no puede ser mayor a la fecha final", 'Cerrar');
 				}
 				this.reservationsService.reportByUser(user, startDate,endDate)
-        .subscribe(({res}) => {
-        	 console.log(res.length)
-	     	   for (let i = 0; i < res.length; i++) {
-			        const elemento = res[i];
-			        // Haz algo con el elemento, por ejemplo, mostrar en la consola
-			        console.log(res[i])
-			        
+		        .subscribe(({res}) => {
+		        	 //console.log(res.length)
 
-			     }
-
-     	  	//this.reservationsService.generarExcel(res, 'ejemplo');
-        },error=>{
-          console.log(error)
-        });
+			     	for (let i = 0; i < res.length; i++) {
+					        const elemento = res[i];
+					        this.lista[i] = {
+					        	id:               res[i].id,
+							    startDate:        res[i].startDate,
+							    endDate:          res[i].endDate,
+							    requerimiento:    res[i].requerimiento,
+							    cantidad_persona: res[i].cantidad_persona,
+							    descripcion:      res[i].descripcion,
+							    state:            res[i].state,
+							    user:             res[i].user.name,
+							    salon:            res[i].salon.name,
+							    direction:        res[i].user?.direction?.address?? ''
+					        }
+					        /*this.lista[i].id=res[i].id;
+					        this.lista[i].startDate=res[i].startDate;
+					        this.lista[i].endDate=res[i].endDate;
+						    this.lista[i].requerimiento=res[i].requerimiento;
+						    this.lista[i].cantidad_persona=res[i].cantidad_persona;
+						    this.lista[i].descripcion=res[i].descripcion;
+						    this.lista[i].state=res[i].state;
+						    this.lista[i].user=res[i].startDate;
+						    this.lista[i].salon=res[i].user.name;
+						    this.lista[i].direction=res[i].user?.direction?.address?? '';*/
+					}
+		     	  	this.reservationsService.generarExcel(this.lista, `desde(${startDate}) hasta(${endDate})`);
+		        },error=>{
+		          console.log(error)
+		        });
         
 
 		    
