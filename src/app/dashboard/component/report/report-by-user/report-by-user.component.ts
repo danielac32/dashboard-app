@@ -117,16 +117,6 @@ public myForm: FormGroup = this.fb.group({
 							    salon:            res[i].salon.name,
 							    direction:        res[i].user?.direction?.address?? ''
 					        }
-					        /*this.lista[i].id=res[i].id;
-					        this.lista[i].startDate=res[i].startDate;
-					        this.lista[i].endDate=res[i].endDate;
-						    this.lista[i].requerimiento=res[i].requerimiento;
-						    this.lista[i].cantidad_persona=res[i].cantidad_persona;
-						    this.lista[i].descripcion=res[i].descripcion;
-						    this.lista[i].state=res[i].state;
-						    this.lista[i].user=res[i].startDate;
-						    this.lista[i].salon=res[i].user.name;
-						    this.lista[i].direction=res[i].user?.direction?.address?? '';*/
 					}
 		     	  	this.reservationsService.generarExcel(this.lista, `desde(${startDate}) hasta(${endDate})`);
 		        },error=>{

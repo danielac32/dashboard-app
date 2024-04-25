@@ -140,8 +140,8 @@ constructor(
 
   createUser():void{
         const dialogRef = this.dialog.open(CreateUserComponent, {
-            width: '300px',
-            height:'550px',
+            width: '500px',
+           
             data: {
               title: 'Crear Usuario'
             }
