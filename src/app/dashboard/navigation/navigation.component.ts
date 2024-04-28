@@ -40,7 +40,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RouterOutlet,
     ReservationCardComponent,
     MatTooltipModule
-  ]
+  ],
+  providers: [AuthService]
 })
 export class NavigationComponent implements OnInit {
   isHandset$: Observable<boolean>;
