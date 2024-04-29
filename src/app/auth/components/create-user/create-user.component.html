@@ -6,39 +6,45 @@
   
             <h2>{{ data.title }}</h2>
    
-     
-        <input type="text" formControlName="name" required  placeholder="Nombre" >
-        @if (myForm.get('name')?.hasError('required')){
+       @if (submitted && myForm.get('name')?.hasError('required')){
             <div class="error-message" >
                 Nombre requerido
             </div>
         }
- 
-           <input type="email" formControlName="email" required  placeholder="Correo electrónico" >
-        @if (myForm.get('name')?.hasError('required')){
+        <input type="text" formControlName="name" required  placeholder="Nombre" >
+        
+         @if (submitted && myForm.get('email')?.hasError('required')){
             <div class="error-message" >
                 Email requerido
             </div>
         }
-         @if (myForm.get('email')?.hasError('email')){
+
+        <input type="email" formControlName="email" required  placeholder="Correo electrónico" >
+       
+         @if (submitted && myForm.get('email')?.hasError('email')){
             <div class="error-message" >
                 El email ingresado no es válido.
             </div>
          }
   
- 
-        <input type="password" formControlName="password" required  placeholder="Contraseña" >
-        @if (myForm.get('password')?.hasError('required')){
+         @if (submitted && myForm.get('password')?.hasError('required')){
             <div class="error-message" >
                 Contraseña requerido
             </div>
         }
-        @if (myForm.get('password')?.hasError('minlength')){
+        @if (submitted && myForm.get('password')?.hasError('minlength')){
             <div class="error-message" >
                 Contraseña menor a 6 caracteres
             </div>
         }
    
+        <input type="password" formControlName="password" required  placeholder="Contraseña" >
+        
+        @if (submitted && myForm.get('selectedItem')?.hasError('required')){
+            <div class="error-message" >
+                Direccion requerida.
+            </div>
+        }
         <select formControlName="selectedItem" class = "custom-select" >
             <option value="" disabled selected>Direcciones</option>
             @for (direction of directions; track direction.id) {
@@ -47,22 +53,18 @@
                 <option>There are no items.</option>
             }   
         </select>
-        @if (myForm.get('selectedItem')?.hasError('required')){
+        
+        @if (submitted && myForm.get('rol')?.hasError('required')){
             <div class="error-message" >
-                Direccion requerida.
+                Rol requerido.
             </div>
-        }
- 
+       }
        <select formControlName="rol" class = "custom-select" >
         <option value="" disabled selected>Rol</option>
        <option value="ADMIN">Admin</option>
        <option value="USER">User</option>
        </select>
-       @if (myForm.get('rol')?.hasError('required')){
-            <div class="error-message" >
-                rol requerido.
-            </div>
-       }
+       
     
        
     <button  type="submit" >Crear</button>

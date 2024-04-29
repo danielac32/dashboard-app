@@ -141,7 +141,7 @@ constructor(
   createUser():void{
         const dialogRef = this.dialog.open(CreateUserComponent, {
             width: '500px',
-           
+            height:'500px',
             data: {
               title: 'Crear Usuario'
             }
@@ -173,6 +173,7 @@ constructor(
       if (id !== undefined) {
          const dialogRef = this.dialog.open(EditComponent, {
             width: '300px',
+            
             data: {
               title: 'Rol',
               items: ['ADMIN', 'USER'] // Tu lista de elementos

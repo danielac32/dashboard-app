@@ -36,7 +36,7 @@ public users: __user[] = [];
 startTime?: string; // Aquí almacenarías el valor de inicio de tu formulario
 endTime?: string; // Aquí almacenarías el valor de inicio de tu formulario
 lista: ExcelReportByUser[]=[];
-
+submitted=false;
 
 public myForm: FormGroup = this.fb.group({
 	    startDate: ['', Validators.required],
@@ -65,6 +65,7 @@ public myForm: FormGroup = this.fb.group({
 		}
 
     ngOnInit(): void {
+    	this.submitted=false;
 	    this.route.queryParams.subscribe(params => {
 	       const parametro = params['reload'];
 	       const status = params['status'];
@@ -92,6 +93,7 @@ public myForm: FormGroup = this.fb.group({
 
 
     createReport():void{
+    	this.submitted=true;
 		    if(!this.myForm.valid) return;
 				const startDate = this.myForm?.get('startDate')?.value;
 				const endDate = this.myForm?.get('endDate')?.value;

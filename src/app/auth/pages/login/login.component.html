@@ -1,22 +1,24 @@
 <main class="box">
 <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="inputBox">
-  <input type="email" formControlName="email" required  placeholder="Correo electrónico">
-   @if(loginForm.get('email')?.hasError('email')){
+
+  @if(submitted && loginForm.get('email')?.hasError('email')){
        <div class = "error-message">El email ingresado no es válido.</div>
    }
-   @if(loginForm.get('email')?.hasError('required')){
+   @if(submitted && loginForm.get('email')?.hasError('required')){
        <div class = "error-message">Email requerido.</div>
    }
+  <input type="email" formControlName="email" required  placeholder="Correo electrónico">
    </div>
   <div class="inputBox">
-  <input type="password"  formControlName="password" required placeholder="Contraseña">
-  @if(loginForm.get('password')?.hasError('required')){
+    @if(submitted && loginForm.get('password')?.hasError('required')){
       <div class = "error-message">Contraseña requerida</div>
   }
-  @if(loginForm.get('password')?.hasError('minlength')){
+  @if(submitted && loginForm.get('password')?.hasError('minlength')){
     <div class = "error-message">Contraseña menor a 6 caracteres</div>
   }
+  <input type="password"  formControlName="password" required placeholder="Contraseña">
+  
   </div>
    <div>
   <button type="submit" name="" style="float: left;">Login</button>

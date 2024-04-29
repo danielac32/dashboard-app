@@ -28,6 +28,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
 loginForm: FormGroup;
+submitted=false;
+
 public isLoggedIn: boolean = false;
 	constructor(private _snackBar: MatSnackBar,private formBuilder: FormBuilder,private authService: AuthService,private router: Router) {
 		this.loginForm = this.formBuilder.group({
@@ -44,10 +46,12 @@ public isLoggedIn: boolean = false;
     });
   }
 	ngOnInit(): void {
+		this.submitted=false;
 	     localStorage.setItem('accessToken','....');
 	}
 
 	onSubmit(): void {
+		this.submitted=true;
 		if(this.loginForm.valid) {
 	       const email = this.loginForm.get('email')!.value;
 	       const password = this.loginForm.get('password')!.value;

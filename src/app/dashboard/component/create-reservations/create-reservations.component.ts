@@ -59,7 +59,7 @@ public myForm: FormGroup = this.fb.group({
 
  startTime?: string; // Aquí almacenarías el valor de inicio de tu formulario
  endTime?: string; // Aquí almacenarías el valor de inicio de tu formulario
-
+ submitted=false;
 
   constructor(
     private fb: FormBuilder,
@@ -83,7 +83,7 @@ public myForm: FormGroup = this.fb.group({
     }
 
   ngOnInit(): void {
-
+   this.submitted=false;
     this.salonService.findAll().subscribe(({ salones }) => {
         this.salons = salones
         //console.log("aquii: ",this.salons[0].id )
@@ -182,6 +182,7 @@ convertTimeEnd(): void {
 
  
   createReservation() {
+    this.submitted=true;
    if(!this.myForm.valid) return;
    const newStartDate = this.myForm?.get('startDate')?.value;
    const newEndDate = this.myForm?.get('endDate')?.value;

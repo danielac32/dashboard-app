@@ -4,19 +4,24 @@
 <mat-card class="login-container">
     <h2>Crear Reservación</h2>
   <form  class="login" [formGroup]="myForm" (ngSubmit)="createReservation()">
+    
 
+    @if (submitted && myForm.get('requerimiento')?.hasError('required')){
+        <div class="error-message" >
+            Nombre requerido
+        </div>
+    }
     <input
         formControlName="requerimiento"
         type="text"
         required  placeholder="Requerimiento" 
     />
-    @if (myForm.get('requerimiento')?.hasError('required')){
+
+ @if (submitted && myForm.get('startDate')?.hasError('required')){
         <div class="error-message" >
-            Nombre requerido
+            Fecha requerida
         </div>
     }
-
-
     <input
         formControlName="startDate"
         type="datetime-local"
@@ -25,12 +30,12 @@
         
 />
     <label>{{startTime}}</label>
-    @if (myForm.get('startDate')?.hasError('required')){
+   
+    @if (submitted && myForm.get('endDate')?.hasError('required')){
         <div class="error-message" >
             Fecha requerida
         </div>
     }
-
     <input
         formControlName="endDate"
         type="datetime-local"
@@ -38,34 +43,38 @@
        (input)="convertTimeEnd()"
     />
     <label>{{endTime}}</label>
-    @if (myForm.get('endDate')?.hasError('required')){
+    
+ 
+
+ @if (submitted && myForm.get('cantidad_persona')?.hasError('required')){
         <div class="error-message" >
-            Fecha requerida
+            Cantidad de personas requerida
         </div>
     }
-
     <input
         formControlName="cantidad_persona"
         type="number"
         required  placeholder="Cantidad de persona"
     />
-    @if (myForm.get('cantidad_persona')?.hasError('required')){
+    
+    @if (submitted && myForm.get('descripcion')?.hasError('required')){
         <div class="error-message" >
-            Cantidad de personas requerida
+            Descripcion requerida
         </div>
     }
-
     <input
         formControlName="descripcion"
         type="text"
         required  placeholder="Descripcion" 
     />
-    @if (myForm.get('descripcion')?.hasError('required')){
+    
+
+
+     @if (submitted && myForm.get('selectedItem')?.hasError('required')){
         <div class="error-message" >
             Descripcion requerida
         </div>
     }
-
     <select formControlName="selectedItem" class = "custom-select">
         <option value="" disabled selected>Salón</option>
         @for (salon of salons; track salon.id) {
@@ -74,11 +83,6 @@
             <option>There are no items.</option>
         }          
     </select>
-    @if (myForm.get('selectedItem')?.hasError('required')){
-        <div class="error-message" >
-            Descripcion requerida
-        </div>
-    }
 
  
 

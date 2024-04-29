@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit{
   newUser !:UserUpdate;
   direction!:string;
   public directions?: Direction[] = []
-
+submitted=false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -78,6 +78,7 @@ export class ProfileComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.submitted=false;
      this.person = this.authService.getUser()
      this.directionsService.findAll().subscribe(({ directions }) => {
      this.directions = directions;
@@ -100,8 +101,8 @@ export class ProfileComponent implements OnInit{
 
   createUser():void{
         const dialogRef = this.dialog.open(UpdateUserComponent, {
-            width: '300px',
-            height:'550px',
+            width: '400px',
+            height:'450px',
             data: {
               title: 'Actualizar Usuario',
               name:this.person?.name,

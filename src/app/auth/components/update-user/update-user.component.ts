@@ -40,7 +40,7 @@ constructor(
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
   public directions?: Direction[] = []
-
+  submitted=false;
 
   public myForm: FormGroup = this.fb.group({
     name: [this.data.name, Validators.required],
@@ -52,7 +52,7 @@ constructor(
 
 
   ngOnInit(): void {
-
+     this.submitted=false;
      this.directionsService.findAll().subscribe(({ directions }) => {
         this.directions = directions;
      }, error => {
@@ -65,6 +65,7 @@ constructor(
 
 
   onSubmit():void{
+    this.submitted=true;
       if(!this.myForm.valid) return;
       const { name, email, password,password2, directionId} = this.myForm.value;
       this.dialogRef.close({ name, email, password, directionId});

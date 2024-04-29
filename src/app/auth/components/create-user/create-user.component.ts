@@ -52,10 +52,10 @@ export class CreateUserComponent  implements OnInit {
     selectedItem: ["", [Validators.required]],
     rol: ['', Validators.required],
   });
-
+  submitted=false;
 
   ngOnInit(): void {
-
+     this.submitted=false;
      this.directionsService.findAll().subscribe(({ directions }) => {
         this.directions = directions;
      }, error => {
@@ -68,6 +68,7 @@ export class CreateUserComponent  implements OnInit {
 
 
   onSubmit():void{
+    this.submitted=true;
       if(!this.myForm.valid) return;
       const { name, email, password, selectedItem,rol} = this.myForm.value;
       /*const { name, email, password, selectedItem,rol} = this.myForm.value;
